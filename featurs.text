@@ -1,0 +1,18 @@
+authentication 
+=>register,
+    login,
+     logout (token blacklisting)
+(otpbased registration)     
+
+
+post 
+=> crate 
+=>seet the feed 
+like post (collection types )
+save post 
+
+
+
+user
+ followers 
+followings 
