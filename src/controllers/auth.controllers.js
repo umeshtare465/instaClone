@@ -1,6 +1,6 @@
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
 const { model } = require("mongoose");
 async function registerController(req, res) {
   const { username, email, password, bio, profileImage } = req.body;
@@ -30,7 +30,7 @@ async function registerController(req, res) {
           : "username is already exist"),
     });
   }
-  const hash = crypto.createHash("sha256").update(password).digest("hex");
+  const hash = await bcrypt.hash(password, 10);
   const user = await userModel.create({
     username,
     email,
@@ -43,7 +43,7 @@ async function registerController(req, res) {
       id: user._id,
     },
     process.env.JWT_KEY,
-    { expiresIn: "id" },
+    { expiresIn: "1d" },
   );
   res.cookie("token", token);
   res.status(201).json({
@@ -73,8 +73,8 @@ async function loginController(req, res) {
       messege: "users not found",
     });
   }
-  const hash = crypto.createHash("sha256").update(password).digest("hex");
-  const isPasswordMatched = hash === user.password;
+
+  const isPasswordMatched = await bcrypt.compare(password, user.password);
   if (!isPasswordMatched) {
     return res.status(401).json({
       messege: "password invalid",
