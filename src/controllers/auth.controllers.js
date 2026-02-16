@@ -63,9 +63,9 @@ async function loginController(req, res) {
   const user = await userModel.findOne({
     $or: [
       //condition1
-      { username: username },
+      { username },
       //   condition2
-      { email: email },
+      { email },
     ],
   });
   if (!user) {
