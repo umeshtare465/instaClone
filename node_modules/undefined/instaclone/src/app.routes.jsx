@@ -12,4 +12,8 @@ export const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/",
+    element: <h1>welcome to 4tech architecture</h1>,
+  },
 ]);
