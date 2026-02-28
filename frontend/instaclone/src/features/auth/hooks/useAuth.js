@@ -10,7 +10,7 @@ export const useAuth = () => {
     setuser(response.user);
     setloading(false);
   };
-  const handleRegister = async (username, enail, password) => {
+  const handleRegister = async (username, email, password) => {
     setloading(true);
     const response = await register(username, email, password);
     setuser(response.user);

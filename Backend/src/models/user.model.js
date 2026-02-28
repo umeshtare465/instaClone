@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     type: String,
 
     required: [true, "password is required"],
+    select: false,
   },
   bio: String,
   profileImage: {
@@ -22,5 +23,5 @@ const userSchema = new mongoose.Schema({
       "https://ik.imagekit.io/ob6xwyhiu/avatar-default-user-profile-icon-social-media-vector-57234208.webp",
   },
 });
-const userModel = mongoose.model("user", userSchema);
+const userModel = mongoose.model("users", userSchema);
 module.exports = userModel;

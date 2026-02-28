@@ -51,7 +51,7 @@ async function registerController(req, res) {
     message: "user register successfully",
     user: {
       email: user.email,
-      username: user.usermae,
+      username: user.username,
       bio: user.bio,
       profileImage: user.profileImage,
     },
@@ -61,14 +61,16 @@ async function loginController(req, res) {
   const { email, username, password } = req.body;
   // email or password
   // username or password
-  const user = await userModel.findOne({
-    $or: [
-      //condition1
-      { username },
-      //   condition2
-      { email },
-    ],
-  });
+  const user = await userModel
+    .findOne({
+      $or: [
+        //condition1
+        { username },
+        //   condition2
+        { email },
+      ],
+    })
+    .select("+password");
   if (!user) {
     return res.status(404).json({
       messege: "users not found",
@@ -94,7 +96,7 @@ async function loginController(req, res) {
     message: "user login successfully",
     user: {
       email: user.email,
-      username: user.usermae,
+      username: user.username,
       bio: user.bio,
       profileImage: user.profileImage,
     },
